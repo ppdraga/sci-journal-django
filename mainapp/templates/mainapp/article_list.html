@@ -1,0 +1,24 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#"></a>
+              <small class="text-muted"> </small>
+              
+            </div>
+            <h5 class="article-title">Статьи:</h5>
+            {% for article in object_list %} 
+            <h6><a class="article-title" href="{% url 'main:article-detail' article.id  %}">
+                {{ article }}
+                {% if article.issue %}
+                Выпуск {{ article.issue }} ({{article.issue.series}},{{article.issue.series.journal}})
+                {% endif %}
+            </a></h6>
+            {% endfor %} 
+            {% if user.is_superuser %}
+              <small class="text-muted"><a class="article-title" href="{% url 'main:article-create' %}">Добавить статью</a> </small>
+            {% endif %}
+          </div>
+        </article>
+{% endblock content %}

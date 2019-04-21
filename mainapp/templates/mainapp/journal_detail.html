@@ -1,0 +1,33 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.issn }}</a>
+              <small class="text-muted"> </small>
+              {% if user.is_superuser %}
+                <div>
+                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'main:journal-update' object.id %}">Изменить</a>
+                  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'main:journal-delete' object.id %}">Удалить</a>
+                </div>
+              {% endif %}
+            </div>
+            <h2 class="article-title">{{ object.name }}</h2>
+            <p class="article-content">Описание: {{ object.description|linebreaks }}</p>
+            <p class="article-content">Редактор: {{ object.redactor }}</p>
+            <p class="article-content">Периодичность: {{ object.issue_period }}</p>
+            <p class="article-content">Издательство: {{ object.issuer }}</p>
+            <p class="article-content">Адрес электронной почты: {{ object.email }}</p>
+            <p class="article-content">Телефон: {{ object.phone }}</p>
+            <p class="article-content">Почтовый адрес: {{ object.address }}</p>
+            <h5 class="article-title">Серии журнала:</h5>
+            {% for ser in object.get_series %} 
+            <h6><a class="article-title" href="{% url 'main:series-detail' ser.pk %}">{{ ser.name }}</a></h6>
+            <p class="article-content">{{ ser.description }}</p>
+            {% endfor %} 
+            {% if user.is_superuser %}
+              <small class="text-muted"><a class="article-title" href="{% url 'main:series-create' object.id %}">Добавить серию</a> </small>
+            {% endif %}
+          </div>
+        </article>
+{% endblock content %}

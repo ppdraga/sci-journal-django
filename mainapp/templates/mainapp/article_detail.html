@@ -1,0 +1,30 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.issn }}</a>
+              <small class="text-muted"> </small>
+              {% if user.is_superuser %}
+                <div>
+                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'main:article-update' object.id  %}">Изменить</a>
+                  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'main:article-delete' object.id  %}">Удалить</a>
+                </div>
+              {% endif %}
+            </div>
+            <h2 class="article-title">{{ object.name }}</h2>
+            <p class="article-content">Авторы: {{ object.authors }}</p> 
+            <p class="article-content">Учебные заведения: {{ object.high_school }}</p> 
+            <p class="article-content">Краткое описание: {{ object.description_ru }}</p> 
+            <p class="article-content">Description: {{ object.description_en }}</p> 
+            <p class="article-content">Аннотация: {{ object.abstract_ru }}</p> 
+            <p class="article-content">Abstract: {{ object.abstract_en }}</p> 
+            <p class="article-content">Ключевые слава: {{ object.keywords }}</p> 
+            <p class="article-content">Дата создания: {{ object.creation_date }}</p> 
+            <p class="article-content">Дата рецензирования: {{ object.reviewed_date }}</p> 
+            <p class="article-content">Дата включения в выпуск: {{ object.include_date }}</p> 
+            <p class="article-content">Cтатус: {{ object.status }}</p> 
+            <a class="article-content" target="_blank" href="{{ object.pdf_file.url }}">Файл статьи</a> 
+          </div>
+        </article>
+{% endblock content %}

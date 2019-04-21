@@ -1,0 +1,17 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+  {% for obj in object %}  
+        <article class="media content-section">
+          <div class="media-body">
+            
+            <h2><a class="article-title" href="{% url 'main:journal-detail' obj.pk %}">{{ obj.name }}</a></h2>
+            <p class="article-content">{{ obj.issn }}</p>
+
+            {% for ser in obj.get_series %} 
+            <h6><a class="article-title" href="{% url 'main:series-detail' ser.pk %}">{{ ser.name }}</a></h6>
+            <p class="article-content">{{ ser.description }}</p>
+            {% endfor %} 
+          </div>
+        </article>
+  {% endfor %}  
+{% endblock content %}

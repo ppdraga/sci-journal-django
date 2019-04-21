@@ -1,0 +1,26 @@
+{% extends "mainapp/base.html" %}
+{% block content %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.issn }}</a>
+              <small class="text-muted"> </small>
+              {% if user.is_superuser %}
+                <div>
+                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'main:series-update' object.id  %}">Изменить</a>
+                  <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'main:series-delete' object.id  %}">Удалить</a>
+                </div>
+              {% endif %}
+            </div>
+            <h2 class="article-title">{{ object.name }} ({{ object.journal }})</h2>
+            <p class="article-content">Описание: {{ object.description }}</p>
+            <h5 class="article-title">Выпуски:</h5>
+            {% for issue in object.get_issues %} 
+            <h6><a class="article-title" href="{% url 'main:issue-detail' issue.id  %}">{{ issue }}</a></h6>
+            {% endfor %} 
+            {% if user.is_superuser %}
+              <small class="text-muted"><a class="article-title" href="{% url 'main:issue-create' object.id  %}">Добавить выпуск</a> </small>
+            {% endif %}
+          </div>
+        </article>
+{% endblock content %}
