@@ -30,6 +30,10 @@
               <a class="nav-item nav-link" href="{% url 'main:home' %}">Главная</a>
               <a class="nav-item nav-link" href="{% url 'main:about' %}">Контакты</a>
             </div>
+            <form class="form-inline my-2" action= "{% url 'main:home' %}">
+              <input class="form-control" type="search" placeholder="Введите ключевые слова" name="search" aria-label="search">
+              <button class="btn btn-outline-light ml-1" type="submit">Поиск</button>
+            </form>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
